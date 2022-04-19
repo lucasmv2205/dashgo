@@ -15,6 +15,7 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import { useEffect } from "react";
 import { RiAddLine, RiPencilLine } from "react-icons/ri";
 import { Header } from "../../components/Header";
 import { Pagination } from "../../components/Pagination";
@@ -23,8 +24,15 @@ import { Sidebar } from "../../components/Sidebar";
 export default function UsersList() {
   const isWideVersion = useBreakpointValue({
     base: false,
-    lg: true
-  })
+    lg: true,
+  });
+
+  useEffect(() => {
+    fetch("http://localhost:3000/api/users")
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+  }, []);
+
   return (
     <Box>
       <Header />
@@ -59,7 +67,7 @@ export default function UsersList() {
                 </Th>
                 <Th>Usuários</Th>
                 {isWideVersion && <Th>Data de cadastro</Th>}
-                <Th width="8" ></Th>
+                <Th width="8"></Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -75,19 +83,21 @@ export default function UsersList() {
                     </Text>
                   </Box>
                 </Td>
-                { isWideVersion && <Td>04 de abril, 2021</Td>}
+                {isWideVersion && <Td>04 de abril, 2021</Td>}
                 <Td>
                   {isWideVersion ? (
                     <Button
-                    as="a"
-                    size="sm"
-                    fontSize="small"
-                    colorScheme="purple"
-                    leftIcon={<Icon as={RiPencilLine} fontSize="16" />}
-                  >
-                    Editar
-                  </Button>
-                  ) : ("")}
+                      as="a"
+                      size="sm"
+                      fontSize="small"
+                      colorScheme="purple"
+                      leftIcon={<Icon as={RiPencilLine} fontSize="16" />}
+                    >
+                      Editar
+                    </Button>
+                  ) : (
+                    ""
+                  )}
                 </Td>
               </Tr>
               <Tr>
@@ -102,19 +112,21 @@ export default function UsersList() {
                     </Text>
                   </Box>
                 </Td>
-                { isWideVersion && <Td>04 de abril, 2021</Td>}
+                {isWideVersion && <Td>04 de abril, 2021</Td>}
                 <Td>
                   {isWideVersion ? (
                     <Button
-                    as="a"
-                    size="sm"
-                    fontSize="small"
-                    colorScheme="purple"
-                    leftIcon={<Icon as={RiPencilLine} fontSize="16" />}
-                  >
-                    Editar
-                  </Button>
-                  ) : ("")}
+                      as="a"
+                      size="sm"
+                      fontSize="small"
+                      colorScheme="purple"
+                      leftIcon={<Icon as={RiPencilLine} fontSize="16" />}
+                    >
+                      Editar
+                    </Button>
+                  ) : (
+                    ""
+                  )}
                 </Td>
               </Tr>
               <Tr>
@@ -129,19 +141,21 @@ export default function UsersList() {
                     </Text>
                   </Box>
                 </Td>
-                { isWideVersion && <Td>04 de abril, 2021</Td>}
+                {isWideVersion && <Td>04 de abril, 2021</Td>}
                 <Td>
                   {isWideVersion ? (
                     <Button
-                    as="a"
-                    size="sm"
-                    fontSize="small"
-                    colorScheme="purple"
-                    leftIcon={<Icon as={RiPencilLine} fontSize="16" />}
-                  >
-                    Editar
-                  </Button>
-                  ) : ("")}
+                      as="a"
+                      size="sm"
+                      fontSize="small"
+                      colorScheme="purple"
+                      leftIcon={<Icon as={RiPencilLine} fontSize="16" />}
+                    >
+                      Editar
+                    </Button>
+                  ) : (
+                    ""
+                  )}
                 </Td>
               </Tr>
             </Tbody>
