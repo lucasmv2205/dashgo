@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { Input } from "../components/Form/Input";
+import Link from "next/link";
 type SignInFormData = {
   email: string;
   password: string;
@@ -54,15 +55,17 @@ export default function SignIn() {
             {...register("password")}
           />
         </Stack>
-        <Button
-          isLoading={formState.isSubmitting}
-          size="lg"
-          type="submit"
-          mt="6"
-          colorScheme="pink"
-        >
-          Entrar
-        </Button>
+        <Link href="/dashboard">
+          <Button
+            isLoading={formState.isSubmitting}
+            size="lg"
+            type="submit"
+            mt="6"
+            colorScheme="pink"
+          >
+            Entrar
+          </Button>
+        </Link>
       </Flex>
     </Flex>
   );
