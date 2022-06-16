@@ -3,7 +3,7 @@ import faker from 'faker'
 
 type User = {
   name: string;
-  emai: string;
+  email: string;
   created_at: string;
 }
 
@@ -15,7 +15,7 @@ export function makeServer(){
     factories:{
       user: Factory.extend({
         name(i){
-          return `User ${i+1}`
+          return `user ${i+1}`
         },
         email(){
           return faker.internet.email().toLowerCase();
@@ -48,6 +48,7 @@ export function makeServer(){
 
       });
       this.post('/users');
+      this.post('/users/:id');
       this.namespace = '';
       this.passthrough();
     }
