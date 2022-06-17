@@ -16,6 +16,7 @@ import {
   Tr,
   useBreakpointValue,
 } from "@chakra-ui/react";
+import { GetServerSideProps } from "next";
 import NextLink from "next/link";
 import { useState } from "react";
 import { RiAddLine, RiPencilLine } from "react-icons/ri";
@@ -23,12 +24,14 @@ import { Header } from "../../components/Header";
 import { Pagination } from "../../components/Pagination";
 import { Sidebar } from "../../components/Sidebar";
 import { api } from "../../services/api";
-import { useUsers } from "../../services/hooks/useUsers";
+import { getUsers, useUsers } from "../../services/hooks/useUsers";
 import { queryClient } from "../../services/queryClient";
 
-export default function UsersList() {
+export default function UsersList({ users }) {
   const [page, setPage] = useState(1);
-  const { data, isLoading, isFetching, error } = useUsers(page);
+  const { data, isLoading, isFetching, error } = useUsers(page, {
+    initialData: users,
+  });
 
   console.log(data);
 
@@ -37,7 +40,7 @@ export default function UsersList() {
     lg: true,
   });
 
-  async function handlePrefetchUsers(userId: number) {
+  async function handlePrefetchUsers(userId: string) {
     await queryClient.prefetchQuery(
       ["user", userId],
       async () => {
@@ -112,7 +115,7 @@ export default function UsersList() {
                           <Link
                             color="purple.400"
                             onMouseEnter={() =>
-                              handlePrefetchUsers(Number(user.id))
+                              handlePrefetchUsers(user.id)
                             }
                           >
                             <Text fontWeight="bold">{user.name}</Text>
@@ -153,4 +156,13 @@ export default function UsersList() {
       </Flex>
     </Box>
   );
+}
+
+export const getServerSideProps: GetServerSideProps = async() => {
+  const {users, totalCount} = await getUsers(1);
+  return {
+    props: {
+      users
+    }
+  }
 }
